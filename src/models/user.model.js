@@ -1,6 +1,6 @@
 import mongoose, { Schema } from "mongoose";
-import jwt from 'jsonwebtoken'
-import bcrypt from 'bcrypt'
+import jwt from 'jsonwebtoken' // it is a bearer token that is it works as key
+import bcrypt from 'bcrypt' // to hash the password
 
 
 const userSchema = new Schema({
@@ -10,7 +10,7 @@ const userSchema = new Schema({
         unique: true,
         lowercase: true,
         trim: true,
-        index: true
+        index: true //enable index only on those field which you want to be searchable but it will increase server bill so use it carefully
     },
     email: {
         type: String,
@@ -50,7 +50,7 @@ const userSchema = new Schema({
 userSchema.pre("save",async function (next){
     if(!this.isModified("password")) return next() // isModified check wheather the password is changed or not and the function will run only if the password is changed
 
-    this.password = bcrypt.hash(this.password, 10)
+    this.password = await bcrypt.hash(this.password, 10)
     next()
 }) // here pre is a mongoose hook which run before any event and in this case event is save taht is everytime data will be saved in the db then function will run before the data is saved and it is a middleware so access of next is necessary
 

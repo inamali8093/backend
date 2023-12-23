@@ -1,9 +1,9 @@
 import mongoose,{ Schema } from "mongoose";
-import mongooseAggregatePaginate from 'mongoose-aggregate-paginate-v2'
+import mongooseAggregatePaginate from 'mongoose-aggregate-paginate-v2' // to write aggrigation queries in mongoose
 
 const videoSchema = new Schema({
     videoFile: {
-        type: String,
+        type: String, //cloudinary url
         required: true,
     },
     thumbnail: {
